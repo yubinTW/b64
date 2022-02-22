@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>base64 encode/decode</title>
+</head>
+<body>
+    <div>
+        <textarea name="a" id="a" 
+            cols="60" rows="10"
+            placeholder="Input something to base64 encode or decode">
+        </textarea>
+    </div>
+    <div class="btn-group">
+        <button onclick="encode()">encode</button>
+        <button onclick="decode()">decode</button>
+        <button onclick="reset()">clear</button>
+    </div>
+    <div>
+        <textarea readonly name="result" id="result" cols="60" rows="10"></textarea>
+    </div>
+
+    <script>
+        const inputTextarea = document.getElementById('a')
+        const resultTextarea = document.getElementById('result')
+
+        function encode() {
+            const userInput = inputTextarea.value
+            const result = utf8_to_b64(userInput)
+            resultTextarea.value = result
+        }
+
+        function decode() {
+            const userInput = inputTextarea.value
+            try {
+                const result = b64_to_utf8(userInput)
+                resultTextarea.value = result
+            } catch(error) {
+                resultTextarea.value = `${error}`
+            }
+        }
+
+        function reset() {
+            inputTextarea.value = ''
+            resultTextarea.value = ''
+        }
+
+        function utf8_to_b64( str ) {
+            return window.btoa(unescape(encodeURIComponent( str )));
+        }
+
+        function b64_to_utf8( str ) {
+            return decodeURIComponent(escape(window.atob( str )));
+        }
+    </script>
+</body>
+</html>
