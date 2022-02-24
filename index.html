@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/pico.min.css">
     <title>base64 encode/decode</title>
 </head>
+
 <body>
-    <div>
-        <textarea name="a" id="a" 
-            cols="60" rows="10"
-            placeholder="Input something to base64 encode or decode"></textarea>
-    </div>
-    <div class="btn-group">
-        <button onclick="encode()">encode</button>
-        <button onclick="decode()">decode</button>
-        <button onclick="reset()">clear</button>
-    </div>
-    <div>
-        <textarea readonly name="result" id="result" cols="60" rows="10"></textarea>
+    <div class="container">
+        <hgroup>
+            <h1>Base64</h1>
+            <h2>Encode and Decode</h2>
+        </hgroup>
+        <div>
+            <textarea name="a" id="a" rows="5" placeholder="Input something to base64 encode or decode"></textarea>
+        </div>
+        <div class="grid">
+            <button onclick="encode()" data-tooltip="UTF-8 -> base64">encode</button>
+            <button onclick="decode()" data-tooltip="base64 -> UTF-8">decode</button>
+            <button onclick="reset()" class="secondary">clear</button>
+        </div>
+        <div>
+            <textarea readonly name="result" id="result" rows="5"></textarea>
+        </div>
     </div>
 
     <script>
@@ -36,7 +43,7 @@
             try {
                 const result = b64_to_utf8(userInput)
                 resultTextarea.value = result
-            } catch(error) {
+            } catch (error) {
                 resultTextarea.value = `${error}`
             }
         }
@@ -46,13 +53,14 @@
             resultTextarea.value = ''
         }
 
-        function utf8_to_b64( str ) {
-            return window.btoa(unescape(encodeURIComponent( str )));
+        function utf8_to_b64(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
         }
 
-        function b64_to_utf8( str ) {
-            return decodeURIComponent(escape(window.atob( str )));
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(window.atob(str)));
         }
     </script>
 </body>
+
 </html>
